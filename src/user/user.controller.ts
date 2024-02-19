@@ -9,6 +9,6 @@ export class UserController {
   getMe(@Req() req: Request) {
     console.log({ user: req.user });
 
-    return 'User Info';
+    return req.user;
   }
 }
