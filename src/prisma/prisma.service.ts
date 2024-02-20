@@ -4,6 +4,8 @@ import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class PrismaService extends PrismaClient {
+  public readonly prisma: PrismaClient;
+
   constructor(config: ConfigService) {
     super({
       datasources: {
@@ -11,6 +13,7 @@ export class PrismaService extends PrismaClient {
           url: config.get('DATABASE_URL'),
         },
       },
+      log: ['query'],
     });
     console.log(config.get('DATABASE_URL'));
   }

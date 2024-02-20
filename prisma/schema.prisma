@@ -14,6 +14,7 @@ model User{
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  isAdmin Boolean @default(false)
 
   email String @unique
   hash String
@@ -21,6 +22,7 @@ model User{
   firstName String?
   lastName String?
   bookmarks Bookmark[]
+  //maps the prisma schema model name to a different table name
   @@map("users")
   
 }
