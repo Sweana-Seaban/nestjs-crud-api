@@ -35,7 +35,7 @@ export class UserService {
         id: id,
       },
       data: {
-        email: updateUserDetails.email,
+        email: updateUserDetails?.email,
         hash: hash,
       },
     });
