@@ -1,5 +1,6 @@
 import { CheckIdExistsInterceptor } from './interceptor/check_id_exists.interceptor';
 import {
+  Body,
   Controller,
   Delete,
   Get,
@@ -14,6 +15,7 @@ import { GetUser } from 'src/auth/decorator/getUser.decorator';
 import { JwtGuard } from 'src/auth/guard';
 import { UserService } from './user.service';
 import { AdminGuard } from './guard';
+import { UpdateUserRequestDto } from './dto/request/UpdateUserRequest.dto';
 
 //every route requires a token
 @UseGuards(JwtGuard)
@@ -36,5 +38,15 @@ export class UserController {
   @UseInterceptors(CheckIdExistsInterceptor)
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.userService.delete(id);
+  }
+
+  @UseInterceptors(CheckIdExistsInterceptor)
+  @UseGuards(AdminGuard)
+  @Put(':id')
+  editUser(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDetails: UpdateUserRequestDto,
+  ) {
+    return this.userService.edit(id, updateUserDetails);
   }
 }

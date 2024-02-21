@@ -20,9 +20,7 @@ export class CheckIdExistsInterceptor implements NestInterceptor {
     next: CallHandler,
   ): Promise<Observable<any>> {
     const request = context.switchToHttp().getRequest();
-    const id = parseInt(request.params.id); // Assuming the ID is provided as a route parameter
-
-    // Check if the ID exists in the database
+    const id = parseInt(request.params.id);
     const entity = await this.prismaService.user.findUnique({
       where: { id },
     });
