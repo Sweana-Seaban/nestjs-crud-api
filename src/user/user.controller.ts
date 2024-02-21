@@ -1,9 +1,19 @@
-import { Controller, Delete, Get, Put, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { User } from '@prisma/client';
 import { GetUser } from 'src/auth/decorator/getUser.decorator';
 import { JwtGuard } from 'src/auth/guard';
 import { UserService } from './user.service';
 import { AdminGuard } from './guard';
+
+//every route requires a token
 @UseGuards(JwtGuard)
 @Controller('user')
 export class UserController {
@@ -17,5 +27,11 @@ export class UserController {
   @Get()
   getAllUsers() {
     return this.userService.findAll();
+  }
+
+  @UseGuards(AdminGuard)
+  @Delete(':id')
+  deleteUser(@Param('id', ParseIntPipe) id: number) {
+    return this.userService.delete(id);
   }
 }
