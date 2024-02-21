@@ -5,7 +5,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { SignInRequestDto } from './dto/request/SignInRequest.dto';
-import { SignUpRequestDto } from './dto/request/SignupRequest.dto';
+import { SignUpRequestDto } from './dto/request/SignUpRequest.dto';
 
 @Injectable()
 export class AuthService {
