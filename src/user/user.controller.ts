@@ -1,3 +1,4 @@
+import { CheckIdExistsInterceptor } from './interceptor/check_id_exists.interceptor';
 import {
   Controller,
   Delete,
@@ -6,6 +7,7 @@ import {
   ParseIntPipe,
   Put,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { GetUser } from 'src/auth/decorator/getUser.decorator';
@@ -31,6 +33,7 @@ export class UserController {
 
   @UseGuards(AdminGuard)
   @Delete(':id')
+  @UseInterceptors(CheckIdExistsInterceptor)
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.userService.delete(id);
   }

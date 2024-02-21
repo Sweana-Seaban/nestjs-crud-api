@@ -11,19 +11,11 @@ export class UserService {
   }
 
   async delete(id: number) {
-    try {
-      await this.prisma.user.delete({
-        where: {
-          id: id,
-        },
-      });
-      return 'User deleted';
-    } catch (error) {
-      if (error instanceof PrismaClientKnownRequestError) {
-        if (error.code === 'P2025')
-          throw new NotFoundException('User not found');
-      }
-      throw error;
-    }
+    await this.prisma.user.delete({
+      where: {
+        id: id,
+      },
+    });
+    return 'User deleted';
   }
 }
